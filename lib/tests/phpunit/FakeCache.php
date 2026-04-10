@@ -18,18 +18,18 @@ class FakeCache implements CacheInterface {
 	private $contents = [];
 
 	/** @inheritDoc */
-	public function get( string $key, mixed $default = null ): mixed {
+	public function get( $key, $default = null ) {
 		return $this->contents[$key] ?? $default;
 	}
 
 	/** @inheritDoc */
-	public function set( string $key, mixed $value, \DateInterval|int|null $ttl = null ): bool {
+	public function set( $key, $value, $ttl = null ): bool {
 		$this->contents[$key] = $value;
 		return true;
 	}
 
 	/** @inheritDoc */
-	public function delete( string $key ): bool {
+	public function delete( $key ): bool {
 		unset( $this->contents[$key] );
 		return true;
 	}
@@ -41,12 +41,12 @@ class FakeCache implements CacheInterface {
 	}
 
 	/** @inheritDoc */
-	public function has( string $key ): bool {
+	public function has( $key ): bool {
 		return isset( $this->contents[$key] );
 	}
 
 	/** @inheritDoc */
-	public function getMultiple( iterable $keys, mixed $default = null ): iterable {
+	public function getMultiple( $keys, $default = null ) {
 		$entries = [];
 		foreach ( $keys as $key ) {
 			$entries[$key] = $this->get( $key );
@@ -56,7 +56,7 @@ class FakeCache implements CacheInterface {
 	}
 
 	/** @inheritDoc */
-	public function setMultiple( iterable $values, \DateInterval|int|null $ttl = null ): bool {
+	public function setMultiple( $values, $ttl = null ): bool {
 		foreach ( $values as $key => $value ) {
 			$this->set( $key, $value );
 		}
@@ -64,7 +64,7 @@ class FakeCache implements CacheInterface {
 	}
 
 	/** @inheritDoc */
-	public function deleteMultiple( iterable $keys ): bool {
+	public function deleteMultiple( $keys ): bool {
 		throw new Exception( 'not yet implemented by test class ' );
 	}
 
