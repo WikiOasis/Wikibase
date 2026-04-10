@@ -126,7 +126,7 @@ class SimpleCacheWithBagOStuff implements CacheInterface {
 	 *   MUST be thrown if $keys is neither an array nor a Traversable,
 	 *   or if any of the $keys are not a legal value.
 	 */
-	public function getMultiple( $keys, $default = null ): iterable {
+	public function getMultiple( $keys, $default = null ) {
 		$keys = $this->toArray( $keys );
 		$this->assertKeysAreValid( $keys );
 		$prefixedKeys = array_map(
