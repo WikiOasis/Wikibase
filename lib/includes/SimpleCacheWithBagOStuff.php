@@ -77,7 +77,7 @@ class SimpleCacheWithBagOStuff implements CacheInterface {
 	 * @throws CacheInvalidArgumentException
 	 *   MUST be thrown if the $key string is not a legal value.
 	 */
-	public function set( string $key, mixed $value, \DateInterval|int|null $ttl = null ): bool {
+	public function set( $key, $value, $ttl = null ): bool {
 		$this->assertKeyIsValid( $key );
 		$key = $this->inner->makeKey( $this->prefix, $key );
 		$ttl = $this->normalizeTtl( $ttl );
@@ -97,7 +97,7 @@ class SimpleCacheWithBagOStuff implements CacheInterface {
 	 * @throws CacheInvalidArgumentException
 	 *   MUST be thrown if the $key string is not a legal value.
 	 */
-	public function delete( string $key ): bool {
+	public function delete( $key ): bool {
 		$this->assertKeyIsValid( $key );
 		$key = $this->inner->makeKey( $this->prefix, $key );
 
@@ -168,7 +168,7 @@ class SimpleCacheWithBagOStuff implements CacheInterface {
 	 *   MUST be thrown if $values is neither an array nor a Traversable,
 	 *   or if any of the $values are not a legal value.
 	 */
-	public function setMultiple( iterable $values, \DateInterval|int|null $ttl = null ): bool {
+	public function setMultiple( $values, $ttl = null ): bool {
 		$values = $this->toAssociativeArray( $values );
 
 		$ttl = $this->normalizeTtl( $ttl );
@@ -192,7 +192,7 @@ class SimpleCacheWithBagOStuff implements CacheInterface {
 	 *   MUST be thrown if $keys is neither an array nor a Traversable,
 	 *   or if any of the $keys are not a legal value.
 	 */
-	public function deleteMultiple( iterable $keys ): bool {
+	public function deleteMultiple( $keys ): bool {
 		$keys = $this->toArray( $keys );
 		$this->assertKeysAreValid( $keys );
 		$result = true;
@@ -217,7 +217,7 @@ class SimpleCacheWithBagOStuff implements CacheInterface {
 	 * @throws CacheInvalidArgumentException
 	 *   MUST be thrown if the $key string is not a legal value.
 	 */
-	public function has( string $key ): bool {
+	public function has( $key ): bool {
 		$this->assertKeyIsValid( $key );
 		$key = $this->inner->makeKey( $this->prefix, $key );
 		$result = $this->inner->get( $key );
