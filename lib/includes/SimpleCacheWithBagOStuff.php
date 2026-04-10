@@ -51,7 +51,7 @@ class SimpleCacheWithBagOStuff implements CacheInterface {
 	 * @throws CacheInvalidArgumentException
 	 *   MUST be thrown if the $key string is not a legal value.
 	 */
-	public function get( string $key, mixed $default = null ): mixed {
+	public function get( $key, $default = null ) {
 		$this->assertKeyIsValid( $key );
 		$key = $this->inner->makeKey( $this->prefix, $key );
 
@@ -126,7 +126,7 @@ class SimpleCacheWithBagOStuff implements CacheInterface {
 	 *   MUST be thrown if $keys is neither an array nor a Traversable,
 	 *   or if any of the $keys are not a legal value.
 	 */
-	public function getMultiple( iterable $keys, mixed $default = null ): iterable {
+	public function getMultiple( $keys, $default = null ) {
 		$keys = $this->toArray( $keys );
 		$this->assertKeysAreValid( $keys );
 		$prefixedKeys = array_map(
