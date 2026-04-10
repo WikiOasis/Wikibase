@@ -99,7 +99,7 @@ class StatslibRecordingSimpleCache implements CacheInterface {
 	 * @return mixed
 	 * @throws \Psr\SimpleCache\InvalidArgumentException
 	 */
-	public function get( $key, $default = null ) {
+	public function get( string $key, mixed $default = null ): mixed {
 		$value = $this->inner->get( $key, self::DEFAULT_VALUE );
 		if ( $value === self::DEFAULT_VALUE ) {
 			$this->recordMisses( 1 );
@@ -117,7 +117,7 @@ class StatslibRecordingSimpleCache implements CacheInterface {
 	 * @return bool
 	 * @throws \Psr\SimpleCache\InvalidArgumentException
 	 */
-	public function set( $key, $value, $ttl = null ) {
+	public function set( string $key, mixed $value, \DateInterval|int|null $ttl = null ): bool {
 		return $this->inner->set( $key, $value, $ttl );
 	}
 
@@ -126,14 +126,14 @@ class StatslibRecordingSimpleCache implements CacheInterface {
 	 * @return bool
 	 * @throws \Psr\SimpleCache\InvalidArgumentException
 	 */
-	public function delete( $key ) {
+	public function delete( string $key ): bool {
 		return $this->inner->delete( $key );
 	}
 
 	/**
 	 * @return bool
 	 */
-	public function clear() {
+	public function clear(): bool {
 		return $this->inner->clear();
 	}
 
@@ -143,7 +143,7 @@ class StatslibRecordingSimpleCache implements CacheInterface {
 	 * @return iterable
 	 * @throws \Psr\SimpleCache\InvalidArgumentException
 	 */
-	public function getMultiple( $keys, $default = null ) {
+	public function getMultiple( iterable $keys, mixed $default = null ): iterable {
 		$values = $this->inner->getMultiple( $keys, self::DEFAULT_VALUE );
 		$misses = 0;
 		$hits = 0;
@@ -175,7 +175,7 @@ class StatslibRecordingSimpleCache implements CacheInterface {
 	 * @return bool
 	 * @throws \Psr\SimpleCache\InvalidArgumentException
 	 */
-	public function setMultiple( $values, $ttl = null ) {
+	public function setMultiple( iterable $values, \DateInterval|int|null $ttl = null ): bool {
 		return $this->inner->setMultiple( $values, $ttl );
 	}
 
@@ -184,7 +184,7 @@ class StatslibRecordingSimpleCache implements CacheInterface {
 	 * @return bool
 	 * @throws \Psr\SimpleCache\InvalidArgumentException
 	 */
-	public function deleteMultiple( $keys ) {
+	public function deleteMultiple( iterable $keys ): bool {
 		return $this->inner->deleteMultiple( $keys );
 	}
 
@@ -193,7 +193,7 @@ class StatslibRecordingSimpleCache implements CacheInterface {
 	 * @return bool
 	 * @throws \Psr\SimpleCache\InvalidArgumentException
 	 */
-	public function has( $key ) {
+	public function has( string $key ): bool {
 		return $this->inner->has( $key );
 	}
 
